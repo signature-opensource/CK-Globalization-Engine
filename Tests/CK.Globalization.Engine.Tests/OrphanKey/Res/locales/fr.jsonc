@@ -1,0 +1,7 @@
+{
+  // This key does NOT exist in default.jsonc — it is an orphan key.
+  // The merge in ResourceContainerGlobalizationExtension.ReadSpecificSet already enforces
+  // that orphan keys cause a monitor.Error and the run fails.
+  "Engine.OrphanKey.Greeting": "Bonjour {0}",
+  "Engine.OrphanKey.OrphanKey": "Clé orpheline"
+}

@@ -1,0 +1,4 @@
+{
+  // This format string is deliberately malformed: {0 is not closed, so PositionalCompositeFormat.TryParse should reject it.
+  "Engine.BadLocale.Greeting": "Bonjour {0"
+}

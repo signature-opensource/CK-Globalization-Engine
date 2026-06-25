@@ -1,0 +1,4 @@
+{
+  "Engine.Sample.Greeting": "Hello {0}",
+  "Engine.Sample.Farewell": "Goodbye"
+}

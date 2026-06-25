@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/CK.Globalization.Engine.Tests/CK.Globalization.Engine.Tests.csproj" />
+  </Folder>
+  <Project Path="CK.Globalization.Engine/CK.Globalization.Engine.csproj" />
+</Solution>
