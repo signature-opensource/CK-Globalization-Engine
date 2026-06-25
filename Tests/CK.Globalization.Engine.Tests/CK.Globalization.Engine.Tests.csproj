@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Globalization.Engine\CK.Globalization.Engine.csproj" />
-    <ProjectReference Include="..\..\CK.Globalization\CK.Globalization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="%24StObjGen\" />
