@@ -1,4 +1,5 @@
 using CK.Core;
+using CK.Globalization;
 
 namespace CK.Globalization.Engine.Tests;
 
@@ -7,9 +8,9 @@ namespace CK.Globalization.Engine.Tests;
 /// (xx-bogus.jsonc, whose stem passes IsValidCultureName but throws CultureNotFoundException on
 /// EnsureNormalizedCultureInfo). Used by SniffTests to prove the sniff skips the bogus file (Warn) without
 /// crashing the build, while the real culture still compiles. Its source lives in its own Bogus/ subfolder
-/// so [EmbeddedResourceType] resolves Bogus/Res/ via CallerFilePath.
+/// so [LocalePackage] resolves Bogus/Res/ via CallerFilePath.
 /// </summary>
-[EmbeddedResourceType]
+[LocalePackage]
 public class BogusLocalePackage : IResourceGroup
 {
 }

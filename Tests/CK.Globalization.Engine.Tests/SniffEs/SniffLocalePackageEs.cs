@@ -1,4 +1,5 @@
 using CK.Core;
+using CK.Globalization;
 
 namespace CK.Globalization.Engine.Tests;
 
@@ -7,7 +8,7 @@ namespace CK.Globalization.Engine.Tests;
 /// Distinct culture + key namespace from SniffLocalePackage so the two sniff tests produce distinct maps
 /// (distinct generated code), keeping them cache-isolated.
 /// </summary>
-[EmbeddedResourceType]
+[LocalePackage]
 public class SniffLocalePackageEs : IResourceGroup
 {
 }

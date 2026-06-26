@@ -1,6 +1,7 @@
 using CK.CodeGen;
 using CK.Core;
 using CK.EmbeddedResources;
+using CK.Globalization.Engine;
 using CK.Setup;
 using System;
 using System.Collections.Generic;
@@ -44,14 +45,19 @@ public sealed class GlobalizationAspect : IStObjEngineAspect, ICSCodeGeneratorWi
         //    Built BEFORE the culture set is decided: the sniff (step 3) needs the resource containers,
         //    and ResSpaceDataBuilder.Build is culture-free.
         var cfg = new ResSpaceConfiguration( group.TypeCache, group.TypeSet.Contains );
-        var pkgIfc = group.TypeCache.Get( typeof( IResourcePackage ) );
-        var grpIfc = group.TypeCache.Get( typeof( IResourceGroup ) );
-        foreach( var t in group.TypeSet )
+        // Select locale packages by the [LocalePackage] attribute (its engine-side LocalePackageAttributeImpl),
+        // NOT by the IResourcePackage/IResourceGroup interface. A real app's type set contains framework
+        // resource types (e.g. CK.TypeScript / CK.TS.Angular packages implement IResourceGroup via
+        // ITypeScriptPackage) that have no backend resource container; registering those would log errors and
+        // abort the build. [LocalePackage] is the explicit, unambiguous selector — it mirrors how the TypeScript
+        // aspect keys off [TypeScriptPackage]. The impl validates IResourceGroup at construction.
+        foreach( var attrCache in c.CurrentRun.EngineMap.AllTypesAttributesCache.Values )
         {
-            if( !t.Interfaces.Contains( pkgIfc ) && !t.Interfaces.Contains( grpIfc ) ) continue;
-            if( cfg.RegisterPackage( monitor, t, defaultTargetPath: default ) == null )
+            if( !attrCache.GetTypeCustomAttributes<LocalePackageAttributeImpl>().Any() ) continue;
+            var cached = group.TypeCache.Get( attrCache.Type );
+            if( cfg.RegisterPackage( monitor, cached, defaultTargetPath: default ) == null )
             {
-                monitor.Trace( $"Skipped non-resource type '{t.Type.FullName}' for locales merge." );
+                monitor.Trace( $"Skipped non-resource type '{attrCache.Type.FullName}' for locales merge." );
             }
         }
         var collector = cfg.Build( monitor );

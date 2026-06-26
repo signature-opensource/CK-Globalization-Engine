@@ -1,4 +1,5 @@
 using CK.Core;
+using CK.Globalization;
 
 namespace CK.Globalization.Engine.Tests;
 
@@ -7,7 +8,7 @@ namespace CK.Globalization.Engine.Tests;
 /// in Res/locales/fr.jsonc. Used by ValidationTests to assert that EmitInstaller
 /// emits a build-time error when a format string is invalid.
 /// </summary>
-[EmbeddedResourceType]
+[LocalePackage]
 public class BadLocalePackage : IResourceGroup
 {
 }

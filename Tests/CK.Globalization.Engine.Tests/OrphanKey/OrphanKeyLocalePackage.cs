@@ -1,4 +1,5 @@
 using CK.Core;
+using CK.Globalization;
 
 namespace CK.Globalization.Engine.Tests;
 
@@ -7,7 +8,7 @@ namespace CK.Globalization.Engine.Tests;
 /// (a key that does not exist in default.jsonc). Used by ValidationTests to assert that
 /// the existing merge logic already catches orphan keys and fails the build.
 /// </summary>
-[EmbeddedResourceType]
+[LocalePackage]
 public class OrphanKeyLocalePackage : IResourceGroup
 {
 }
