@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- ContextBoundDelegationAttribute / IAttributeContextBound live in CK.StObj.Model.
+         This is precisely why [LocalePackage] cannot live in the runtime CK.Globalization package
+         (CK.StObj.Runtime references CK.Globalization, so CK.Globalization -> CK.StObj.Model would
+         close a repository cycle). This thin StObj-aware companion package carries the attribute instead. -->
+    <PackageReference Include="CK.StObj.Model" Version="33.0.2--ci.1" />
+    <!-- IEmbeddedResourceTypeAttribute: lets the attribute carry [CallerFilePath] so the engine
+         resolves the decorated type's Res/locales folder. -->
+    <PackageReference Include="CK.EmbeddedResources.Abstractions" Version="2.0.1" />
+  </ItemGroup>
+</Project>

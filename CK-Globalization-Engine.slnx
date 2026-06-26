@@ -7,6 +7,8 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests/CK.Globalization.Engine.Tests/CK.Globalization.Engine.Tests.csproj" />
+    <Project Path="Tests/CK.Globalization.Engine.Tests.LocaleAttrFixture/CK.Globalization.Engine.Tests.LocaleAttrFixture.csproj" />
   </Folder>
   <Project Path="CK.Globalization.Engine/CK.Globalization.Engine.csproj" />
+  <Project Path="CK.Globalization.StObj/CK.Globalization.StObj.csproj" />
 </Solution>

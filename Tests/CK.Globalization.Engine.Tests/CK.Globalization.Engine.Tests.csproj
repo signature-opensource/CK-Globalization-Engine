@@ -12,6 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Globalization.Engine\CK.Globalization.Engine.csproj" />
+    <!-- Dedicated single-package fixture assembly added to FirstBinPath.Assemblies so [LocalePackage]
+         attribute-driven discovery is exercised the way a real app scans a referenced package assembly. -->
+    <ProjectReference Include="..\CK.Globalization.Engine.Tests.LocaleAttrFixture\CK.Globalization.Engine.Tests.LocaleAttrFixture.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="%24StObjGen\" />

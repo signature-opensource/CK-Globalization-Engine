@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The [LocalePackage] discovery attribute under test. -->
+    <ProjectReference Include="..\..\CK.Globalization.StObj\CK.Globalization.StObj.csproj" />
+    <!-- IResourceGroup (this fixture plays the role of a real consumer package). -->
+    <PackageReference Include="CK.ResourceSpace.Abstractions" Version="29.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Res\**\*" />
+  </ItemGroup>
+</Project>
