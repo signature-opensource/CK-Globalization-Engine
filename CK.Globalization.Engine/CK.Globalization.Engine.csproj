@@ -8,13 +8,13 @@
     <!-- StObj engine: IStObjEngineAspect / ICSCodeGenerator / CSCodeGenerationResult.
          CK.Engine.Configuration: EngineAspectConfiguration / BinPathAspectConfiguration.
          Both packages are from the same CK-StObj version train (33.0.1, targeting CK.Abstractions 29.0.1). -->
-    <PackageReference Include="CK.StObj.Engine" Version="33.0.2" />
-    <PackageReference Include="CK.Engine.Configuration" Version="33.0.2" />
+    <PackageReference Include="CK.StObj.Engine" Version="33.0.3" />
+    <PackageReference Include="CK.Engine.Configuration" Version="33.0.3" />
     <!-- Build-time Res/locales merge engine (ResSpaceConfiguration, LocalesResourceHandler, ...).
          0.31.2 aligns with this stack: its CK.ResourceSpace transitively targets
          CK.Engine.TypeCollector 33.0.1 (same train as CK.StObj.Engine above), and its transitive
          CK.Globalization 5.0.1 is the SAME major+version as this repo's local CK.Globalization,
          which wins via the ProjectReference (no NU1605/downgrade). -->
-    <PackageReference Include="CK.ResourceSpace.Globalization" Version="0.32.0" />
+    <PackageReference Include="CK.ResourceSpace.Globalization" Version="0.32.1" />
   </ItemGroup>
 </Project>

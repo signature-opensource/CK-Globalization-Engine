@@ -9,7 +9,7 @@
     <!-- The [LocalePackage] discovery attribute under test. -->
     <ProjectReference Include="..\..\CK.Globalization.StObj\CK.Globalization.StObj.csproj" />
     <!-- IResourceGroup (this fixture plays the role of a real consumer package). -->
-    <PackageReference Include="CK.ResourceSpace.Abstractions" Version="29.0.2" />
+    <PackageReference Include="CK.ResourceSpace.Abstractions" Version="29.0.3" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Res\**\*" />
