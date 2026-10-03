@@ -12,6 +12,6 @@
     <PackageReference Include="CK.StObj.Model" Version="35.0.0-juliet.0.ci.6" />
     <!-- IEmbeddedResourceTypeAttribute: lets the attribute carry [CallerFilePath] so the engine
          resolves the decorated type's Res/locales folder. -->
-    <PackageReference Include="CK.EmbeddedResources.Abstractions" Version="3.0.0" />
+    <PackageReference Include="CK.EmbeddedResources.Abstractions" Version="4.0.0-mike.0.ci.5" />
   </ItemGroup>
 </Project>
