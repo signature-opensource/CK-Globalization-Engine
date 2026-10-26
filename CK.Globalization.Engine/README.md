@@ -8,21 +8,18 @@ ships.
 ## What it produces
 
 `GlobalizationAspect` is an `IStObjEngineAspect` and an `ICSCodeGeneratorWithFinalization`, and all the
-work happens in the finalization pass. Its summary states the outcome:
-
-> merges per-package `Res/locales/*.jsonc` and generates the `GlobalizationTranslationInstaller` body so
-> that, at map load, the merged per-culture formats are registered via `SetCachedTranslations`.
+work happens in the finalization pass: it merges the per-package `Res/locales/*.jsonc` and generates the
+`ApplyTranslations` override of `GlobalizationTranslationInstaller`, which registers the merged
+per-culture formats via `SetCachedTranslations`. That generated body is invoked from
+`GlobalizationTranslationInstaller.RegisterStartupServices`, at the top of the DI-configuration phase -
+after every `StObjInitialize`, before the service provider is built.
 
 The merged formats are baked into the generated code as literal `(resName, format)` tuples, so **the
-aspect's output reads no translation file at runtime** - the `LocalesResourceHandler` is built with
-`installer: null` and `ResSpace.Install` is never called. Note that the runtime package does ship a
+aspect's output reads no translation file at runtime** - the
+[`LocalesResourceHandler`](https://github.com/signature-opensource/CK-ResourceSpace/blob/stable/CK.ResourceSpace.Globalization/README.md)
+is built with `installer: null` and `ResSpace.Install` is never called. Note that the runtime package does ship a
 `GlobalizationFileHelper` that loads `.json`/`.jsonc` from a folder; that is a separate, opt-in path, not
 what this aspect produces.
-
-On "at map load": the quoted summary is loose. The generated body is invoked from
-`GlobalizationTranslationInstaller.RegisterStartupServices`, which runs at the top of the
-DI-configuration phase - after every `StObjInitialize`, before the service provider is built. Loading
-the map alone does not trigger it.
 
 ## Selection is by attribute, not by interface
 
@@ -49,7 +46,9 @@ type "would log errors and abort the build".
 
 ## Order of operations
 
-The aspect builds its `ResSpaceData` **before** deciding the culture set, and says why:
+The aspect builds its `ResSpaceData` (see
+[CK.ResourceSpace](https://github.com/signature-opensource/CK-ResourceSpace/blob/stable/CK.ResourceSpace/README.md)
+for the build steps of a resource space) **before** deciding the culture set, and says why:
 
 > Built BEFORE the culture set is decided: the sniff (step 3) needs the resource containers, and
 > `ResSpaceDataBuilder.Build` is culture-free.
