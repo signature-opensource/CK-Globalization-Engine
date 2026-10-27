@@ -11,8 +11,9 @@ namespace CK.Setup;
 
 /// <summary>
 /// Build-time aspect that merges per-package <c>Res/locales/*.jsonc</c> and generates the
-/// <see cref="CK.Globalization.GlobalizationTranslationInstaller"/> body so that, at map load,
-/// the merged per-culture formats are registered via <c>SetCachedTranslations</c>.
+/// <see cref="CK.Globalization.GlobalizationTranslationInstaller"/> <c>ApplyTranslations</c> override so that the
+/// merged per-culture formats are registered via <c>SetCachedTranslations</c> when the carrier's
+/// <c>RegisterStartupServices</c> runs (at the start of the DI configuration).
 /// </summary>
 public sealed class GlobalizationAspect : IStObjEngineAspect, ICSCodeGeneratorWithFinalization
 {
@@ -165,7 +166,7 @@ public sealed class GlobalizationAspect : IStObjEngineAspect, ICSCodeGeneratorWi
                                IEnumerable<(string culture, (string resName, string format)[] pairs)> data )
     {
         // Always emit the override (even when data is empty): the body simply overrides the virtual
-        // no-op base ApplyTranslations. The carrier's StObjInitialize then invokes the generated body.
+        // no-op base ApplyTranslations. The carrier's RegisterStartupServices then invokes the generated body.
         bool success = true;
         ITypeScope ck = c.Assembly.Code.Global
                          .FindOrCreateAutoImplementedClass( monitor, typeof( CK.Globalization.GlobalizationTranslationInstaller ) );
