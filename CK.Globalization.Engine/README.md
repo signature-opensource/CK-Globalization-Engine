@@ -38,11 +38,10 @@ That last sentence carries the enforcement, and it happens far earlier than this
 `monitor.Error` when the type implements neither `IResourceGroup` nor `IResourcePackage`. Decorating the
 wrong type **fails the build**, during type collection, before the merge is even reached.
 
-The aspect also has a `Trace`, for a different case: a type that *is* a resource group but for which
-`RegisterPackage` returns null - typically because it carries no backend resource container. Do not read
-that `Trace` as tolerance: every path on which `RegisterPackage` returns null has already logged an
-error of its own, so the run fails there too. The aspect's comment says as much - registering such a
-type "would log errors and abort the build".
+A different case is a type that *is* a resource group but for which `RegisterPackage` returns null -
+typically because it carries no backend resource container. `RegisterPackage` has logged the error, and the
+aspect fails: it registers all the decorated types first, so that all the errors are reported, then stops
+before building the resource space.
 
 ## Order of operations
 

@@ -51,15 +51,16 @@ public sealed class GlobalizationAspect : IStObjEngineAspect, ICSCodeGeneratorWi
         // ITypeScriptPackage) that have no backend resource container; registering those would log errors and
         // abort the build. [LocalePackage] is the explicit, unambiguous selector — it mirrors how the TypeScript
         // aspect keys off [TypeScriptPackage]. The impl validates IResourceGroup at construction.
+        // A failed registration (the error is logged) is an error: all the packages are registered to report
+        // all the errors.
+        bool registered = true;
         foreach( var attrCache in c.CurrentRun.EngineMap.AllTypesAttributesCache.Values )
         {
             if( !attrCache.GetTypeCustomAttributes<LocalePackageAttributeImpl>().Any() ) continue;
             var cached = group.TypeCache.Get( attrCache.Type );
-            if( cfg.RegisterPackage( monitor, cached, defaultTargetPath: default ) == null )
-            {
-                monitor.Trace( $"Skipped non-resource type '{attrCache.Type.FullName}' for locales merge." );
-            }
+            registered &= cfg.RegisterPackage( monitor, cached, defaultTargetPath: default ) != null;
         }
+        if( !registered ) return false;
         var collector = cfg.Build( monitor );
         if( collector == null ) return false;
         var spaceData = new ResSpaceDataBuilder( collector ).Build( monitor );
