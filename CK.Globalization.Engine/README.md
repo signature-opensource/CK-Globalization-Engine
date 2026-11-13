@@ -80,6 +80,13 @@ Everything configurable is per-BinPath, in
 deduplicates case-insensitively and resolves each name through `NormalizedCultureInfo`. The element may
 be omitted entirely - the aspect handles a null per-BinPath configuration.
 
+### From the App's "ckonf.json"
+
+With a `ckonf.json` (CK.AppBuilder), the [`GlobalizationAppBuilderContributor`](GlobalizationAppBuilderContributor.cs)
+configures the aspect from the "Globalization" section of a BinPath: `"Globalization": { "ActiveCultures": "fr, fr-CA" }`
+(or an array of culture names) is its `GlobalizationBinPathAspectConfiguration`, and its presence gives the
+`GlobalizationAspectConfiguration`. It is a compile time section: it is not projected in the host's `appsettings.json`.
+
 ## Requires.
 
 - `CK.StObj.Engine` and `CK.Engine.Configuration` for the aspect contracts, and
