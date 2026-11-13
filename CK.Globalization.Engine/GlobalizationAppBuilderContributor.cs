@@ -6,10 +6,10 @@ using System.Linq;
 namespace CK.Setup;
 
 /// <summary>
-/// Configures the Globalization aspect from the BinPaths of the App ("ckonf.json"): the "Globalization" section of a
-/// BinPath (<c>"Globalization": { "ActiveCultures": "fr, en" }</c>, or an array of culture names) is its
+/// Configures the Globalization aspect from the Apps of the builder ("ckonf.json"): the "Globalization" aspect of an App
+/// (<c>"Aspects": { "Globalization": { "ActiveCultures": "fr, en" } }</c>, or an array of culture names) is its
 /// <see cref="GlobalizationBinPathAspectConfiguration"/>, and its presence gives the <see cref="GlobalizationAspectConfiguration"/>.
-/// It is compile time: it is not projected in the host's "appsettings.json".
+/// Like every aspect, it is compile time: it is not projected in the host's "appsettings.json".
 /// </summary>
 public sealed class GlobalizationAppBuilderContributor : IAppBuilderContributor
 {
@@ -17,11 +17,10 @@ public sealed class GlobalizationAppBuilderContributor : IAppBuilderContributor
     public bool Contribute( IActivityMonitor monitor, AppBuilderContext context )
     {
         bool success = true;
-        foreach( var b in context.BinPaths )
+        foreach( var a in context.Apps )
         {
-            var section = b.Configuration.TryGetSection( "Globalization" );
+            var section = a.Aspects.TryGetAspect( "Globalization" );
             if( section == null ) continue;
-            b.AddCompileKey( "Globalization" );
             foreach( var k in section.GetChildren() )
             {
                 if( !k.Key.Equals( "ActiveCultures", System.StringComparison.OrdinalIgnoreCase ) )
@@ -33,7 +32,7 @@ public sealed class GlobalizationAppBuilderContributor : IAppBuilderContributor
             var cultures = section["ActiveCultures"]
                            ?? string.Join( ", ", section.TryGetSection( "ActiveCultures" )?.GetChildren().Select( c => c.Value ) ?? [] );
             context.EngineConfiguration.EnsureAspect<GlobalizationAspectConfiguration>();
-            b.BinPathConfiguration.EnsureAspect<GlobalizationBinPathAspectConfiguration>().ActiveCultures = cultures;
+            a.BinPathConfiguration.EnsureAspect<GlobalizationBinPathAspectConfiguration>().ActiveCultures = cultures;
         }
         return success;
     }
