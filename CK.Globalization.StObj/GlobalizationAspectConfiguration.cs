@@ -4,8 +4,8 @@ namespace CK.Setup;
 
 /// <summary>
 /// Engine aspect configuration for backend translation composition.
-/// The <see cref="AspectType"/> string points CKSetup at <see cref="GlobalizationAspect"/>
-/// in the same assembly (<c>CK.Globalization.Engine</c>).
+/// The <see cref="AspectType"/> string points the engine at <c>GlobalizationAspect</c> (CK.Globalization.Engine).
+/// It is configured by the "Globalization" App aspect (<see cref="CK.Globalization.GlobalizationAppAspect"/>).
 /// </summary>
 public sealed class GlobalizationAspectConfiguration : EngineAspectConfiguration
 {

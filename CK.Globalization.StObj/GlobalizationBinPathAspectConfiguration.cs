@@ -12,21 +12,10 @@ namespace CK.Setup;
 public sealed class GlobalizationBinPathAspectConfiguration : BinPathAspectConfiguration
 {
     /// <summary>
-    /// Gets or sets the comma-separated BCP47 culture list to compile into the registrar.
+    /// Gets or sets the comma-separated BCP47 culture list to compile into the registrar (the engine parses it:
+    /// <c>GlobalizationBinPathAspectConfigurationExtensions.GetActiveCultures</c>).
     /// </summary>
     public string ActiveCultures { get; set; } = "";
-
-    /// <summary>
-    /// Parses <see cref="ActiveCultures"/> and returns the deduplicated set as
-    /// <see cref="NormalizedCultureInfo"/> instances.
-    /// </summary>
-    public IReadOnlyList<NormalizedCultureInfo> GetActiveCultures()
-    {
-        var names = ActiveCultures
-            .Split( ',', System.StringSplitOptions.RemoveEmptyEntries | System.StringSplitOptions.TrimEntries )
-            .Distinct( System.StringComparer.OrdinalIgnoreCase );
-        return names.Select( NormalizedCultureInfo.EnsureNormalizedCultureInfo ).ToArray();
-    }
 
     /// <inheritdoc/>
     public override void InitializeFrom( XElement e )

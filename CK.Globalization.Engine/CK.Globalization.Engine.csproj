@@ -19,4 +19,8 @@
          which wins via the ProjectReference (no NU1605/downgrade). -->
     <PackageReference Include="CK.ResourceSpace.Globalization" Version="36.0.2-0.uc.0.ci.21" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Its model: the aspect configurations and the "Globalization" App aspect. -->
+    <ProjectReference Include="..\CK.Globalization.StObj\CK.Globalization.StObj.csproj" />
+  </ItemGroup>
 </Project>

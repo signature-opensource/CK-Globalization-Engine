@@ -1,8 +1,9 @@
 # CK.Globalization.StObj
 
-One attribute, `[LocalePackage]`. It is the discovery hook that pulls a backend resource package into
-the build-time translation merge - and the reason it lives in its own package is worth reading before
-you go looking for it in `CK.Globalization`.
+The model of the back-end translations: the `[LocalePackage]` attribute, the discovery hook that pulls a backend
+resource package into the build-time translation merge, and the "Globalization" App aspect that configures it (see
+[The "Globalization" aspect](#the-globalization-aspect)). The reason it lives in its own package is worth reading before
+you go looking for it in `CK.Globalization`. It requires its engine, CK.Globalization.Engine (`[RequiredEngine]`).
 
 ## The attribute
 
@@ -80,9 +81,21 @@ carries is only the attribute - the behaviour stays in the engine.
 
 None beyond the attribute itself. The base constructor names its engine counterpart by string -
 `"CK.Globalization.Engine.LocalePackageAttributeImpl, CK.Globalization.Engine"` - so the behaviour lives
-in the engine assembly. What ships here is a marker; what acts on it stays on the build side. That string is also the reason the engine needs no reference back: its implementation
-takes a plain `Attribute`, precisely *"so this engine assembly needs no reference to the attribute's
-package"*.
+in the engine assembly. What ships here is a marker; what acts on it stays on the build side. The engine's
+implementation takes a plain `Attribute` (the engine references this model for the configuration of the aspect, not
+for the attribute).
+
+## The "Globalization" aspect
+
+`GlobalizationAppAspect` is the "Globalization" App aspect (`[AppAspect( "Globalization", TypeActivation.Optional )]`):
+an App of the builder's `ckonf.json` declares it to merge its translations for its active cultures:
+
+```jsonc
+"Aspects": { "Globalization": { "ActiveCultures": "fr, en" } }   // Or an array of culture names.
+```
+
+It configures the engine aspect (`GlobalizationAspectConfiguration`) and the App's
+`GlobalizationBinPathAspectConfiguration`, both in this package. An unknown key fails the build.
 
 ## Requires.
 

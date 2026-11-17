@@ -64,31 +64,23 @@ The `ResSpace` itself is built later, after the culture set exists, because it c
 
 ## Configuration
 
-Two classes, the usual CKSetup pair.
-[`GlobalizationAspectConfiguration`](GlobalizationAspectConfiguration.cs) carries nothing today - *"no
-aspect-level attributes"* - and exists to point CKSetup at the aspect through its `AspectType` string.
-Everything configurable is per-BinPath, in
-[`GlobalizationBinPathAspectConfiguration`](GlobalizationBinPathAspectConfiguration.cs):
+The configuration is in the model, [CK.Globalization.StObj](../CK.Globalization.StObj/README.md): the "Globalization"
+App aspect (`GlobalizationAppAspect`), declared in the `"Aspects"` of an App of the builder's `ckonf.json`:
 
-```xml
-<BinPath>
-    <Globalization ActiveCultures="fr,en-US" />
-</BinPath>
+```jsonc
+"Aspects": { "Globalization": { "ActiveCultures": "fr, fr-CA" } }   // Or an array of culture names.
 ```
 
-`ActiveCultures` is a comma-separated BCP47 list. `GetActiveCultures()` splits it, trims, drops empties,
-deduplicates case-insensitively and resolves each name through `NormalizedCultureInfo`. The element may
-be omitted entirely - the aspect handles a null per-BinPath configuration.
+It ensures the two engine configurations: `GlobalizationAspectConfiguration` (it carries nothing: it points the engine
+at the aspect through its `AspectType` string) and the App's `GlobalizationBinPathAspectConfiguration` (its
+`ActiveCultures`). Like every aspect, it is compile time: it is not projected in the host's `appsettings.json`.
 
-### From the builder's "ckonf.json"
-
-With a `ckonf.json` (CK.AppBuilder), the [`GlobalizationAppBuilderContributor`](GlobalizationAppBuilderContributor.cs)
-configures the aspect from the "Globalization" aspect of an App:
-`"Aspects": { "Globalization": { "ActiveCultures": "fr, fr-CA" } }` (or an array of culture names) is its
-`GlobalizationBinPathAspectConfiguration`, and its presence gives the `GlobalizationAspectConfiguration`. Like every
-aspect, it is compile time: it is not projected in the host's `appsettings.json`.
+`ActiveCultures` is a comma-separated BCP47 list.
+`GlobalizationBinPathAspectConfigurationExtensions.GetActiveCultures` (this engine) splits it, trims, drops empties,
+deduplicates case-insensitively and resolves each name through `NormalizedCultureInfo`. An App without the aspect has
+no per-BinPath configuration: the aspect handles it.
 
 ## Requires.
 
-- `CK.StObj.Engine` and `CK.Engine.Configuration` for the aspect contracts, and
+- Its model, `CK.Globalization.StObj` (the configuration), `CK.StObj.Engine` and `CK.Engine.Configuration` for the aspect contracts, and
   `CK.ResourceSpace.Globalization` for the merge itself.
