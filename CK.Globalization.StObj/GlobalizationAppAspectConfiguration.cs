@@ -10,7 +10,7 @@ namespace CK.Globalization;
 /// </code>
 /// </summary>
 [ConfigurationModel]
-public sealed partial class GlobalizationAppAspectConfiguration
+public sealed class GlobalizationAppAspectConfiguration
 {
     /// <summary>
     /// Gets the active cultures of the App: the cultures whose translations are merged (a comma separated string or an

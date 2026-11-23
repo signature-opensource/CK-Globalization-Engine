@@ -10,7 +10,7 @@
          (CK.StObj.Runtime references CK.Globalization, so CK.Globalization -> CK.StObj.Model would
          close a repository cycle). This thin StObj-aware companion package carries the attribute instead. -->
     <PackageReference Include="CK.StObj.Model" Version="37.0.0-0.uc.1.ci.54" />
-    <!-- The model of the Globalization aspect (and the generator of its description). -->
+    <!-- The model of the Globalization aspect. -->
     <PackageReference Include="CK.ConfigurationModel" Version="0.0.0-0.uc.0.ci.7" />
     <!-- IEmbeddedResourceTypeAttribute: lets the attribute carry [CallerFilePath] so the engine
          resolves the decorated type's Res/locales folder. -->

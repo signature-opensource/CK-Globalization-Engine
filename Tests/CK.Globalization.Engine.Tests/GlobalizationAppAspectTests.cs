@@ -52,7 +52,7 @@ public class GlobalizationAppAspectTests
     [Test]
     public void the_description_of_the_configuration()
     {
-        var d = GlobalizationAppAspectConfiguration.ModelDescription;
+        var d = ConfigurationModelDescription.Get( typeof( GlobalizationAppAspectConfiguration ) );
         d.Find( "ActiveCultures" ).ShouldNotBeNull().Kind.ShouldBe( ConfigurationPropertyKind.List );
         ConfigurationModelSchema.ToJsonSchema( d )["properties"]!["ActiveCultures"].ShouldNotBeNull();
     }
