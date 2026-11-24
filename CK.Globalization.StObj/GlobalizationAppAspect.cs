@@ -16,7 +16,7 @@ namespace CK.Globalization;
 /// </summary>
 [AppAspect( "Globalization", TypeActivation.Optional )]
 [Configuration<GlobalizationAppAspectConfiguration>]
-public sealed class GlobalizationAppAspect : IAppAspect
+public sealed class GlobalizationAppAspect : IAppAspectApply
 {
     /// <summary>
     /// Initializes a new <see cref="GlobalizationAppAspect"/> from its configuration.
