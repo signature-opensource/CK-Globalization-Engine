@@ -9,7 +9,7 @@
          This is precisely why [LocalePackage] cannot live in the runtime CK.Globalization package
          (CK.StObj.Runtime references CK.Globalization, so CK.Globalization -> CK.StObj.Model would
          close a repository cycle). This thin StObj-aware companion package carries the attribute instead. -->
-    <PackageReference Include="CK.StObj.Model" Version="37.0.0-0.uc.3.ci.68" />
+    <PackageReference Include="CK.StObj.Model" Version="37.0.0-0.uc.3.ci.69" />
     <!-- The model of the Globalization aspect. -->
     <PackageReference Include="CK.ConfigurationModel" Version="0.0.0-0.uc.1.ci.19" />
     <!-- IEmbeddedResourceTypeAttribute: lets the attribute carry [CallerFilePath] so the engine
